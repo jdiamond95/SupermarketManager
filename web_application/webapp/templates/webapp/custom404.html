@@ -1,0 +1,13 @@
+{% extends "webapp/base.html" %}
+{% block content %}
+    <div class="container">
+
+
+        <div class="alert alert-danger" role="alert">
+        <h4>Error</h4>
+        404 Error! Page not found!
+        <hr>
+        Navigate back to home <a href="{% url "webapp:index" %}">here
+        </div>
+    </div>
+{% endblock %}

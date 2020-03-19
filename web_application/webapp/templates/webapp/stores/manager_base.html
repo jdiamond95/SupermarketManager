@@ -1,0 +1,36 @@
+{% extends "webapp/base.html" %}
+{% block content %}
+
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col"><h4>Manager Profile - {% block manager_title %}{% endblock %}</h4></div>
+                    <div class="col" style="text-align: right;">
+                        <span style="vertical-align: middle; display: inline-block">
+
+                        <ul class="nav nav-tabs">
+                          <li class="nav-item">
+                            <a class="nav-link" href={% url 'webapp:view_profile' user.id %}>Info</a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" href={% url 'webapp:branch_inventory_manage' user.id branch.company branch.branchName %}>Manage Branch Inventory</a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" href={% url 'webapp:branch_analytics_manage' user.id branch.company branch.branchName %}>Analytics</a>
+                          </li>
+                        </ul>
+
+                        {#  <a href={% url 'webapp:branch_inventory_manage' user.id branch.company branch.branchName %}><b>Manage Branch Inventory</b></a> | #}
+                        {#<a href={% url 'webapp:branch_analytics_manage' user.id branch.company branch.branchName %}><b>Analytics</b></a>#}
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            {% block manager_content %}
+
+            {% endblock %}
+        </div>
+    </div>
+{% endblock %}

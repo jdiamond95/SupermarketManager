@@ -1,0 +1,15 @@
+{% extends "webapp/stores/manager_base.html" %}
+{% block manager_title %}
+Info
+{% endblock %}
+{% block manager_content %}
+
+    <div class="card-body">
+        <div class="card-title"><b>Manager name: {{ user.get_full_name }}</b></div>
+        <hr>
+        <p class="card-text">
+            Branch: {{ branch.branchName }}<p>
+            Joined: {{ user.date_joined }}<p>
+            Last accessed: {{ user.last_login }}<p>
+    </div>
+{% endblock %}

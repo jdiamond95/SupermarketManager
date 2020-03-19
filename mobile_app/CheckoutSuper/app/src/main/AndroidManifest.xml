@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.pearlie.checkoutsuper">
+
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/supermarkt_theme">
+        <activity android:name=".LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".CustomerHomeActivity" />
+        <activity
+            android:name=".NewShopActivity"
+            android:label="@string/title_activity_new_shop"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".CusHistoryActivity"
+            android:label="@string/title_activity_cus_history"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ManagerHomeActivity"
+            android:label="@string/title_activity_manager_home"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".BarcodeCaptureActivity" />
+        <activity android:name=".AddProductActivity" />
+        <activity android:name=".EditProductActivity" />
+        <activity android:name=".CheckoutShoppingCartActivity" />
+        <activity android:name=".SingleHistoryTransactionActivity"></activity>
+    </application>
+
+</manifest>

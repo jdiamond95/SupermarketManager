@@ -1,0 +1,13 @@
+{% extends "webapp/base.html" %}
+{% block content %}
+    <div class="container">
+
+
+        <div class="alert alert-danger" role="alert">
+        <h4>Error</h4>
+        {{ error }}
+        <hr>
+        Navigate back to your profile <a href="{% url "webapp:view_profile" user.id %}">here
+        </div>
+    </div>
+{% endblock %}

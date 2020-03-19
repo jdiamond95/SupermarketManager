@@ -1,0 +1,84 @@
+{% extends "webapp/base.html" %}
+{% block content %}
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <div class="header clearfix">
+                    <nav>
+                        <ul class="nav nav-pills float-right">
+                            <li class="nav-item">
+                                <a class="nav" href="{% url "webapp:view_profile" user.id%}">Back</a>
+                            </li>
+                        </ul>
+                        <h4 class="text">Transaction History</h4>
+                    </nav>
+                </div>
+            </div>
+
+            <div class="card-body">
+                <div class="card-title"><b>{{ user.get_full_name }}</b></div>
+                <hr>
+                    {% if transaction_history %}
+                        {% for t in transaction_history %}
+                            <p class="card-text">
+                                <div class="row">
+                                    <div class="col">
+                                        <a href="{% url "webapp:transaction_details" user.id t.id %}">
+                                            <b>{{ t.supermarketBranch.company.name}} - {{ t.supermarketBranch.branchName }} at {{ t.time}}</b>
+                                        </a>
+                                    </div>
+                                    <div class="col">
+                                        Time: {{ t.time }}<p></p>
+                                        Total price: $ {{ t.total_price}}
+                                    </div>
+                                </div>
+                            </p>
+                            <hr>
+                        {% endfor %}
+                    {% else %}
+                        You have no past transactions
+                    {% endif %}
+            </div>
+
+            <nav aria-label="Pagination-fav-branch">
+                <ul class="pagination justify-content-center">
+                    {% if store_inventory.has_previous %}
+                        <li class="page-item ">
+                          <a class="page-link" href="?page={{ transaction_history.previous_page_number }}">Previous</a>
+                        </li>
+                    {% endif %}
+
+                    <li class="page-item">
+                        <a class="page-link" href="#">Page {{ transaction_history.number }} of {{ transaction_history.paginator.num_pages }}.</a>
+                    </li>
+
+                    {% if store_inventory.has_next %}
+                        <li class="page-item ">
+                            <a class="page-link"href="?page={{ transaction_history.next_page_number }}">Next</a>
+                        </li>
+                    {% endif %}
+
+                </ul>
+
+            </nav>
+
+        </div>
+    </div>
+
+
+{% endblock %}
+{#        <h1>Transaction History for: {{ user.get_full_name }}</h1>#}
+{#        <hr>#}
+{#        {% for t in transaction_history %}#}
+{##}
+{#            <div class="container">#}
+{#                <a href="{% url "webapp:transaction_details" user.id t.id %}">#}
+{#                    <b>{{ t.supermarketBranch.company.name}} - {{ t.supermarketBranch.branchName }} at {{ t.time}}</b>#}
+{#                </a>#}
+{#                <ul>#}
+{#                    <li>Total price: $ {{ t.total_price}}</li>#}
+{#                </ul>#}
+{#            </div>#}
+{#        {% endfor %}#}
+{#    </div>#}
+{#{% endblock %}#}

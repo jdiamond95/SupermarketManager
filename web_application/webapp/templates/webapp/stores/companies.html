@@ -1,0 +1,66 @@
+{% extends "webapp/base.html" %}
+
+{% block content %}
+    <div class="container">
+
+        <div class="card">
+            <div class="card-header">
+                <div class="header clearfix">
+                    <nav>
+{#                        <ul class="nav nav-pills float-right">#}
+{#                            <li class="nav-item">#}
+{#                                <a class="nav" href="{% url "webapp:view_profile" user_id%}">Back</a>#}
+{#                            </li>#}
+{#                        </ul>#}
+                        <h4 class="text">Companies</h4>
+                    </nav>
+                </div>
+
+            </div>
+
+            <div class="card-body">
+                <p class="card-text">
+                    <table class="table table-hover">
+                        <thead class="thead-default">
+                        <tr>
+                            <th></th>
+                            <th>Company Name</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for c in companies %}
+                            <tr style="cursor:pointer;" onclick="window.document.location='{% url 'webapp:branch_list' c.name %}';">
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ c }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+
+{#<div class="card">#}
+{#    <div class="card-header">#}
+{#        <div class="header clearfix">#}
+{#            <nav>#}
+{#                <ul class="nav nav-pills float-right">#}
+{#                    <li class="nav-item">#}
+{#                        <a class="nav" href="{% url "webapp:view_profile" user_id%}">Back</a>#}
+{#                    </li>#}
+{#                </ul>#}
+{#                <h4 class="text">Select a favourite branch</h4>#}
+{#            </nav>#}
+{#        </div>#}
+{##}
+{#    </div>#}
+{##}
+{#    <div class="card-body">#}
+{#        <p class="card-text">#}
+{#        </p>#}
+{#    </div>#}
+{#</div>#}

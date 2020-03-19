@@ -1,0 +1,14 @@
+{% extends "webapp/base.html" %}
+{% load i18n %}
+
+{% block content %}
+{% csrf_token %}
+  <p>This is the registration form</p>
+  <form action='' method="POST">
+    {{form.as_ul}}
+    <input type="submit" value="Register">
+  </form>
+{% endblock %}
+
+
+

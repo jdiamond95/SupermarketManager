@@ -1,0 +1,67 @@
+{% extends "webapp/base.html" %}
+{% block content %}
+    {% load static %}
+    {% static "webapp/product_images/" as baseImageUrl %}
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <div class="header clearfix">
+                    <nav>
+                        <ul class="nav nav-pills float-right">
+                            <li class="nav-item">
+                                <a class="nav" href="{% url "webapp:transaction_history" user.id%}">Back</a>
+                            </li>
+                        </ul>
+                        <h4 class="text">Transaction Details</h4>
+                    </nav>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-title"><b>{{ user.get_full_name }}</b></div>
+                <div class="card-subtitle mb-2 text-muted">Transaction Total: $ {{ transaction.total_price }}</div>
+                <hr>
+
+                {% for t in transaction_data %}
+{#                                                DATA STRUCT{{ t }}#}
+        {#            TODO find a way to access the data of inventory items without using filter#}
+{#                    <div class="container">#}
+                        <div class="card">
+                            <div class="card-body">
+
+                                <div class="row">
+                                    <div class="col">
+                                        <h1>{{ t.0.item.name }}</h1>
+{#                                        <img src="{% static "webapp/sample-item-image.jpg" %}" class="img" alt="My image" height="88"/>#}
+
+                                            <object data="{{ baseImageUrl }}{{t.0.item.name }}.jpg" height="88" type="image/png">
+                                            <img src="{% static "webapp/image-unavailable-grey.jpg" %}" height="88" />
+                                            </object>
+                                    </div>
+                                    <div class="col">
+                                        <h3>Unit Price: $ {{ t.1.price }}</h3>
+                                        <h3>Quantity: {{ t.0.quantity }}</h3>
+                                        {% if t.0.quantity > 1 %}
+                                            <h3>Total Price: $ {{ t.2}}</h3>
+                                        {% endif %}
+                                        <h3>Category: {{ t.1.item.category }} </h3>
+                {#                            <h3>Aisle: {{ i.aisle}}</h3>#}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <p></p>
+{#                    </div>#}
+
+                {% endfor %}
+
+                <hr>
+                <div class="card">
+                    <div class="card-body">
+                    <h2>Transaction Total: $ {{ transaction.total_price }}</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

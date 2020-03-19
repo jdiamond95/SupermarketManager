@@ -1,0 +1,45 @@
+{% extends "webapp/base.html" %}
+
+{% block content %}
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <div class="header clearfix">
+                    <nav>
+                        <ul class="nav nav-pills float-right">
+                            <li class="nav-item">
+                                <a class="nav" href="{% url "webapp:company_list"%}">Back</a>
+                            </li>
+                        </ul>
+                        <h4 class="text">Branches</h4>
+                    </nav>
+                </div>
+
+            </div>
+            <div class="card-body">
+                <p class="card-text">
+                    <table class="table table-hover">
+                        <thead class="thead-default">
+                        <tr>
+                            <th></th>
+                            <th>Company Name</th>
+                            <th>Address</th>
+                            <th>Telephone</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for b in branches %}
+                            <tr style="cursor:pointer;" onclick="window.document.location='{% url 'webapp:store_description' company_name b.id %}';">
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ b }}</td>
+                                <td>{{ b.address }}</td>
+                                <td>{{ b.telephone }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+{#                </p>#}
+            </div>
+        </div>
+    </div>
+{% endblock %}

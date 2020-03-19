@@ -1,0 +1,100 @@
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+    /*padding-top: 1.5rem;*/
+    padding-top: 56px;
+    padding-bottom: 1.5rem;
+    background-color: #fdfdff;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 60px;
+    line-height: 60px; /* Vertically center the text there */
+    background-color: #fdfdff;
+}
+
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+body > .container {
+    padding: 30px 15px 0;
+}
+
+.footer > .container {
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+code {
+    font-size: 80%;
+}
+
+/* Additional*/
+.img-account-auth {
+    width: 16px;
+    height: 16px;
+}
+
+.panel {
+    border: 1px solid rgba(0, 0, 0, .15);
+    border-radius: 4px;
+    margin: 0 auto;
+    background-color: #fdfdff;
+}
+
+.panel-body {
+    padding: 15px;
+}
+
+.background-image-shop {
+    position: fixed;
+    left: 0px;
+    right: 0px;
+    height: 100vh;
+    z-index: -1;
+}
+
+body > .front-page-cards {
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+.lead {
+    font-weight: 500;
+}
+
+/*Custom*/
+li.borderless {
+    border: 0 none;
+}
+
+/*ul.borderless {*/
+/*border-top: 0 none;*/
+/*}*/
+
+.verticle-center {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.card-header {
+    background-color: rgba(85,96,128, 0.2);
+    border-bottom: 1px solid rgba(85,96,128, 0.3);
+}
+
+.card {
+    border: 1px solid rgba(85,96,128, 0.3);
+}

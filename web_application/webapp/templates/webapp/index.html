@@ -1,0 +1,168 @@
+{% extends "webapp/base.html" %}
+{% load static %}
+
+{% block content %}
+
+
+    <div class="background-image-shop"
+         style="height: 500px; position: absolute; background: url('{% static "webapp/food-healthy-vegetables-potatoes(1).jpg" %}') no-repeat;"></div>
+    <div style="height:500px">
+        <div class="container verticle-center">
+
+{#        <h3 class="text-primary"> Welcome to SuperMarkt#}
+{#                    <small class="text-muted">The service that will revolutionise your shopping experience!</small>#}
+{#                </h3>#}
+            <div class="jumbotron"
+                 style="margin: auto; background-color: rgba(253,253, 255, 0.85); padding: 2rem; text-align: center">
+
+                <h3 class="text-primary"> Welcome to SuperMarkt</h3>
+                <h3><small class="text-muted">The service that will revolutionise your shopping experience!</small></h3>
+
+
+                <p class="text-primary">&nbsp;</p>
+                <img src="{% static "webapp/logo.png" %}" height="100px">
+
+                <p class="text-primary">&nbsp;</p>
+{#                <small class="text-muted">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</small>#}
+
+                {% if user.is_authenticated == False %}
+                    <p><a class="btn btn-lg btn-success" href="{% url "webapp:signup" %}" role="button">Sign up
+                        today</a>
+                    </p>
+                {% endif %}
+
+
+{#                <h1 class="display-3">SuperMarkt</h1>#}
+{#                <p class="lead">Welcome to SuperMarkt, the service that will revolutionise your shopping experience!</p>#}
+
+            </div>
+        </div>
+    </div>
+    {% if user.is_authenticated == True %}
+        <div class="front-page-cards container " style="text-align: center;">
+            <br>
+            <h1>Welcome back {{ user.first_name }}</h1><br><br>
+            <div class="row" style=" height: 300px">
+                {% if is_manager == True %}
+                    <div class="col-md-4" style="border-right: 1px solid rgba(85,96,128, 0.3);">
+                        <a href="{% url "webapp:branch_inventory_manage" user.id branch.company.name branch.branchName%}">
+                            <img src="{% static "webapp/clipboard.svg" %}" height="200px"><br><br>
+                            <p class="lead">Manage Inventory</p></a>
+                    </div>
+                {% else %}
+                    <div class="col-md-4" style="border-right: 1px solid rgba(85,96,128, 0.3);">
+                    <a href="{% url "webapp:company_list" %}">
+                        <img src="{% static "webapp/cart.svg" %}" height="200px"><br><br>
+                        <p class="lead">Find stores and search products!</p></a>
+                    </div>
+                {% endif %}
+
+{#                {{ is_manager }}#}
+                {% if is_manager == True %}
+                <div class="col-md-4" style="border-right: 1px solid rgba(85,96,128, 0.3);">
+                    <a href="{% url 'webapp:branch_analytics_manage' user.id branch.company.name branch.branchName%}">
+                        <img src="{% static "webapp/graph.svg" %}" height="200px"><br><br>
+                        <p class="lead">View Branch Analytics</p></a>
+                </div>
+
+                {% else %}
+                    <div class="col-md-4" style="border-right: 1px solid rgba(85,96,128, 0.3);">
+                    <a href="{% url 'webapp:transaction_history' user.id %}">
+                        <img src="{% static "webapp/document.svg" %}" height="200px"><br><br>
+                        <p class="lead">See previous transactions</p></a>
+                    </div>
+                {%  endif %}
+
+                <div class="col-md-4">
+                    <a href="{% url 'webapp:view_profile' user.id %}">
+                        <img src="{% static "webapp/profile.svg" %}" height="200px"><br><br>
+                        <p class="lead">Go to my profile</p></a>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="front-page-cards container ">
+            <br>
+            <div style="text-align: center;">
+                <h1>Shop with Major Leading Brands</h1>
+                <br>
+                <p class="lead">We partner with many major players in the supermarket industry so that you only ever
+                    need
+                    one platform for all your shopping needs</p>
+
+                <div class="row" style="padding-top: 50px; padding-bottom: 50px">
+                    <div class="col-md-4">
+                        <img src="{% static "webapp/Woolworths-logo.png" %}" height="100px">
+                    </div>
+                    <div class="col-md-4">
+                        <img src="{% static "webapp/coles.png" %}" height="100px">
+                    </div>
+                    <div class="col-md-4">
+                        <img src="{% static "webapp/ALDI.png" %}" height="100px">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="front-page-cards container ">
+            <br>
+            <div style="text-align: center;">
+                <h1>Skip the Lines with our Mobile App</h1>
+                <br>
+                <div class="row" style="height: 300px">
+                    <div class="col-md-6">
+                        <img src="{% static "webapp/google_play_logo.png" %}" height="300px">
+                    </div>
+                    <div class="col-md-6" style="display: flex; align-items: center; height: 100%;">
+                        <p class="lead" style="text-align: left">With our lightning fast mobile app, you will be able to
+                            scan the items you want right off the self, checkout there and then, and be on your way</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="front-page-cards container ">
+            <br>
+            <div style="text-align: center;">
+                <h1>Highly Recommended by Our Users</h1>
+                <br>
+                <p class="lead">Our customers love what SuperMarkt can do for them, which is why we know you'll love it
+                    too</p>
+                <br>
+                <hr>
+                <div class="w3-panel w3-leftbar w3-light-grey" style="font-size: x-large;">
+                    <p class="w3-xxlarge w3-serif">
+                        <i>"This product is freakin lit"</i></p>
+                    <p>- President Trump</p>
+                </div>
+                <hr>
+                <br>
+            </div>
+        </div>
+        <hr>
+        <div class="front-page-cards container ">
+            <br>
+            <div style="text-align: center;">
+                <h1>Join us!</h1>
+                <br>
+                <p class="lead">We promise you won't be disappointed</p>
+                <br>
+                <a class="btn btn-lg btn-success" href="{% url "webapp:signup" %}" role="button">Sign up today</a>
+            </div>
+        </div>
+    {% endif %}
+    <!-- /.container -->
+
+
+    <!-- /.container -->
+    {#        <div class="container">#}
+    {#            <div class="jumbotron">#}
+    {#                <h1 class="display-3">SuperMarkt</h1>#}
+    {#                <p class="lead">Start shopping today by searching for stores using SuperMarkt!</p>#}
+    {#                <p><a class="btn btn-lg btn-success" href="{% url "webapp:company_list" %}" role="button">See stores#}
+    {#                    available!</a></p>#}
+    {#            </div>#}
+    {#        </div>#}
+
+
+{% endblock %}

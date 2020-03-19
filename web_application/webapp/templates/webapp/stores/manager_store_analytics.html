@@ -1,0 +1,176 @@
+{% extends "webapp/stores/manager_base.html" %}
+{% block manager_title %}
+Branch Analytics
+{% endblock %}
+{% block manager_content %}
+    {% load static %}
+    {{ context }}
+
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script src="http://d3js.org/topojson.v1.min.js"></script>
+    <script src="http://d3js.org/d3.geo.projection.v0.min.js" charset="utf-8"></script>
+    <script src="http://trifacta.github.com/vega/vega.js"></script>
+
+    <div class="container">
+        <div class="card-body">
+            <div class="card-title"><b>Manager name: {{ user.get_full_name }}</b></div>
+{#                <hr>#}
+            <p class="card-text">
+
+                {%  for x in store_analytics %}
+{#                        {{ x }}#}
+                    {%  if x.0 == 'Total Sales' %}
+                        <div class="row">
+                            <div class="col-4">
+                                <div class="row border border-dark rounded">
+                                    <div class="container">
+                                        Total Sales: $ {{ x.1 }}
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    {%  elif x.0 == 'Monthly Transactions' %}
+                        <div class="row">
+                            <div class="col-4">
+                                <div class="row border border-dark rounded">
+                                    <div class="container">
+                                        Monthly Number of Transactions: {{ x.1 }}
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    {%  elif x.0 == 'Total Transactions' %}
+                        <div class="row">
+                            <div class="col-4">
+                                <div class="row border border-dark rounded">
+                                    <div class="container">
+                                        Total Number of Transactions: {{ x.1 }}
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    {%  else %}
+
+
+                        <div class="row border border-dark rounded ">
+                            <div class="col">
+
+{#                                Show the type of attribute and the name of it ie 'Most Popular: apple' #}
+                                {{ x.0 }}: {{ x.1.0 }}
+                            </div>
+                            <div class="col">
+                                Quantity Sold: {{ x.1.1.0}}
+                            <p></p>
+                            Unit price: $ {{ x.1.1.1}}
+{#                                Value of sales: $ {{ x.1.1.1}}#}
+                            </div>
+                        </div>
+                    {% endif %}
+                    <p></p>
+                {%  endfor %}
+
+
+
+
+
+        <div class="float-right">
+            <div id="idk"></div>
+
+            <script type="text/javascript">
+            // parse a spec and create a visualization view
+            function parse(spec) {
+              vg.parse.spec(spec, function(chart)
+                  {
+
+{#                      chart({el:"#idk"}).update();#}
+                      console.log(chart);
+                    var our_view = chart({el:"#idk"});
+                    our_view.width(300);
+                    our_view.height(300);;
+                    our_view.update();
+
+
+
+                    console.log(our_view);
+{#                      var our_view = chart({el:"#idk"});#}
+{#                      our_view.width(100).height(100).renderer("svg").update();#}
+                  }
+              );
+            }
+            parse("{% static "webapp/categories_pie.json" %}");
+            </script>
+
+            </div>
+        </div>
+
+
+        <div class="container">
+                <form method="POST" class="form-inline">
+                    {% csrf_token %}
+                    <select class="custom-select" name="months">
+                        <option value="" disabled selected>Select Timeframe (Months)</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                    </select>
+{#                    <input type="submit">#}
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+
+            <div id="vis"></div>
+            <script type="text/javascript">
+            // parse a spec and create a visualization view
+            var view;
+            function parse(spec) {
+
+              vg.parse.spec(spec, function(chart)
+                {
+{#                    chart({el:"#vis"}).update();#}
+
+                    console.log(chart);
+                    var our_view = chart({el:"#vis"});
+                    our_view.width(400);
+                    our_view.height(400);;
+                    our_view.update();
+
+
+{#                    chart({el:"#vis"}).update();#}
+                    console.log(our_view);
+
+{#                    var our_view = chart({el:"#vis"}).update();#}
+{#                    our_view.width(300).height(100).renderer("svg").update();#}
+{#                    view = new vega.View(vega.parse(spec))#}
+{#                        .renderer('canvas')  // set renderer (canvas or svg)#}
+{#                        .initialize('#view') // initialize view within parent DOM container#}
+{#                        .hover()             // enable hover encode set processing#}
+{#                        .run();#}
+                }
+              );
+            }
+
+            parse("{% static "webapp/sales_graph.json" %}");
+            </script>
+
+            </div>
+        </div>
+
+
+
+
+
+    </div>
+
+{% endblock %}

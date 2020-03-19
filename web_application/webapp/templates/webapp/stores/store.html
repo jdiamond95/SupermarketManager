@@ -1,0 +1,169 @@
+{% extends "webapp/base.html" %}
+{% block content %}
+    {% load static %}
+    {% static "webapp/product_images/" as baseImageUrl %}
+    <div class="container">
+
+        <div class="card">
+            <div class="card-header">
+                <div class="header clearfix">
+                    <nav>
+                        <ul class="nav nav-pills float-right">
+                            <li class="nav-item">
+                                <a class="nav" href="{% url "webapp:branch_list" company_name%}">Back</a>
+                            </li>
+                        </ul>
+                        <h4 class="text">{{ company_name }} - {{ store_name }} Inventory</h4>
+                    </nav>
+                </div>
+
+            </div>
+            <div class="card-body">
+{#                <div class="container ">#}
+                    <form class="form-group row">
+{#                        <label for="inputSearch" class="col-sm-3 col-form-label">&nbsp;</label>#}
+                        <div class="col-sm-10 ml-auto">
+                            <input type="text" class="form-control" id="inputSearch" name='q' placeholder="Search by product name or aisle">
+                        </div>
+                        <div class="col-1 mr-auto    ">
+                            <button type="submit" class="btn btn-primary" value="Search">Search</button>
+                        </div>
+                    </form>
+                </div>
+{#            </div>#}
+
+{#            <div class="card-body">#}
+{#                <form method="get" class="float-right">#}
+{##}
+{#                    <div class="col-sm-10">#}
+{##}
+{#                        <input class="form-control" type="text" name='q' placeholder="Search by product name or aisle"/>#}
+{#                    </div>#}
+{##}
+{#                    <button type="submit" class="btn btn-primary" value="Search">Search</button>#}
+{#                </form>#}
+{##}
+{#            </div>#}
+
+{#            <div class="card-body">#}
+{#                <form method="get" class="form-inline form-row float-sm-right">#}
+{#                    <input class="form-control" type="text" name='q' placeholder="Search for a product"/>#}
+{#                    <button type="submit" class="btn btn-primary" value="Search">Search</button>#}
+{#                </form>#}
+{#            </div>#}
+
+            <div class="card-body">
+                {% if store_inventory.end_index == 0%}
+                    <h2 class="card-title">
+                    No products avaliable.
+                    </h2>
+                {% else %}
+
+                    {% for i in store_inventory %}
+    {#                    <div class="container">#}
+    {#                        <div class="panel" style="background-color: transparent">#}
+    {#                            <div class="panel-body">#}
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-3" style="text-align: center">
+                                            {#                                                                {{ i.item.name }} - $ {{ i.price }}#}
+{#                                            <img src="{% static "webapp/sample-item-image.jpg" %}" class="img" alt="My image"#}
+{#                                                 height="175" />#}
+{#                                            <img src="{{ baseUrl }}/img/{{p.id}}"></img>#}
+{#                                            {{ baseImageUrl }} {{ i.item_name }} .jpg#}
+                                            {% static "webapp/product_images/" as baseImageUrl %}
+                                            <object data="{{ baseImageUrl }}{{ i.item.name }}.jpg" height="175px" type="image/png">
+                                            <img src="{% static "webapp/image-unavailable-grey.jpg" %}" height="175px" />
+                                            </object>
+{#                                            <img id="currentPhoto" src="SomeImage.jpg" onerror="this.src={% static "webapp/sample-item-image.jpg" %}" width="100" height="120">#}
+{#                                            <img src="{{ baseImageUrl }}{{ i.item.name }}.jpg" style="background-image:url({% static "webapp/sample-item-image.jpg" %}); background-size: 175px;" class='backup_picture' onerror="{% static "webapp/sample-item-image.jpg" %}" height="175">#}
+                                        </div>
+                                        <div class="col-md-9">
+                                            <h2>{{ i.item.name.capitalize }}</h2><hr>
+                                            <div style="font-size: large">
+                                                <div class="row">
+                                                    <div class="col-md-2">
+                                                        Price
+                                                    </div>
+                                                    <div class="col-md-10">
+                                                        ${{ i.price }}
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-2">
+                                                        Quantity
+                                                    </div>
+                                                    <div class="col-md-10">
+                                                        {{ i.quantity }}
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-2">
+                                                        Category
+                                                    </div>
+                                                    <div class="col-md-10">
+                                                        {{ i.item.category }}
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-2">
+                                                        Aisle
+                                                    </div>
+                                                    <div class="col-md-10">
+                                                        {{ i.aisle }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+    {#                    </div>#}
+                        <br>
+                    {% endfor %}
+                {% endif %}
+{#                </div>#}
+            </div>
+
+
+            <nav aria-label="Pagination-fav-branch">
+                <ul class="pagination justify-content-center">
+                    {% if store_inventory.has_previous %}
+                        <li class="page-item ">
+                          <a class="page-link" href="?page={{ store_inventory.previous_page_number }}">Previous</a>
+                        </li>
+                    {% endif %}
+
+                    <li class="page-item">
+                        <a class="page-link" href="#">Page {{ store_inventory.number }} of {{ store_inventory.paginator.num_pages }}.</a>
+                    </li>
+
+                    {% if store_inventory.has_next %}
+                        <li class="page-item ">
+                            <a class="page-link"href="?page={{ store_inventory.next_page_number }}">Next</a>
+                        </li>
+                    {% endif %}
+
+                </ul>
+
+            </nav>
+        </div>
+    </div>
+{% endblock %}
+
+{#{% extends "webapp/base.html" %}#}
+{##}
+{#{% block content %}#}
+{#    <div class="container">#}
+{#        <h1>{{ company_name }} - {{ store_name }}</h1>#}
+{#        <h3>Inventory</h3>#}
+{#        <ul>#}
+{#            {% for i in store_inventory%}#}
+{#                <li>#}
+{#                    {{ i.item.name }} - $ {{ i.price }}#}
+{#                </li>#}
+{#            {% endfor %}#}
+{#        </ul>#}
+{#    </div>#}
+{#{% endblock %}#}

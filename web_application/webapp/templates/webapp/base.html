@@ -1,0 +1,142 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    {#    TODO try to import from static dir local to 'webapp'#}
+    <link rel="stylesheet" href="{% static "webapp/bootstrap-4.0.0-beta-dist/css/bootstrap.min.css" %}">
+
+    <!-- Custom styles for this template -->
+    <link href=" {% static "webapp/base-page-custom.css" %}" rel="stylesheet">
+
+    <link rel="shortcut icon" type="image/png" href="{% static "webapp/logo.png" %}">
+
+    <title>SuperMarkt</title>
+</head>
+
+<!-- Fixed navbar -->
+<nav class="navbar navbar-expand-md navbar-dark fixed-top" style="background-color: #393d3f !important;">
+    <div class="container">
+        <a class="navbar-brand" href="/index">
+            <div style="vertical-align: middle;"><img src="{% static "webapp/logo.png" %}" height="24px" style="padding-right: 5px; padding-bottom: 2px">
+                SuperMarkt
+            </div>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+                aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+            <ul class="navbar-nav mr-auto">
+                {#          <li class="nav-item active">#}
+                {#              {% if user.is_authenticated %}#}
+                {##}
+                {#              {% else %}#}
+                {#                  <a class="nav-link" href={% url 'auth_login' %}>Profile <span class="sr-only">(current)</span></a>#}
+                {#              {% endif %}#}
+                {#          </li>#}
+                <li class="nav-item active">
+                    <a class="nav-link" href={% url 'webapp:company_list' %}>
+                        <img src="{% static "webapp/icons/open-iconic-master/svg/list.svg" %}"
+                                    class="img-fluid img-account-auth" alt="stores img">&nbsp;Stores</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href={% url 'webapp:about_us' %}>
+                        <img src="{% static "webapp/icons/open-iconic-master/svg/info.svg" %}"
+                                    class="img-fluid img-account-auth" alt="about us img">&nbsp;About Us</a>
+                </li>
+            </ul>
+
+
+            <ul class="nav navbar-nav pull-xs-right">
+                {#        <li class="navbar-text">#}
+                {##}
+                {#                {% if user.is_authenticated %}#}
+                {#                    Welcome back {{ user.first_name }}#}
+                {#                    <br/>#}
+                {#                {% endif %}#}
+                {#            </span>#}
+                {#        </li>#}
+                {% if user.is_authenticated %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
+                           aria-haspopup="true" aria-expanded="false">Welcome back {{ user.first_name }}</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href={% url 'webapp:view_profile' user.id %}>
+                                <img
+                                    src="{% static "webapp/icons/open-iconic-master/svg/home.svg" %}"
+                                    class="img-fluid img-account-auth" alt="account home">&nbsp;Profile</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href={% url 'auth_logout' %}?next=/index>
+                                <img
+                                    src="{% static "webapp/icons/open-iconic-master/svg/account-login.svg" %}"
+                                    class="img-fluid img-account-auth" alt="account login">&nbsp;Sign&nbsp;Out</a>
+                        </div>
+
+                    </li>
+                {% else %}
+                    <a class="nav-link" href={% url 'auth_login' %}>
+                        <img
+                            src="{% static "webapp/icons/open-iconic-master/svg/account-logout.svg" %}"
+                            class="img-fluid img-account-auth" alt="account login">&nbsp;Sign&nbsp;In<span
+                            class="sr-only">(current)</span></a>
+                {% endif %}
+
+                {#        <li class="nav-item">#}
+                {#            <span>#}
+                {#                {% if user.is_authenticated %}#}
+                {#                    <a class="nav-link" href={% url 'auth_logout' %}><img src="{% static "webapp/icons/open-iconic-master/svg/account-login.svg" %}" class="img-fluid img-account-auth" alt="account login">&nbsp;Sign&nbsp;Out</a>#}
+                {#                {% else %}#}
+                {#                    <a class="nav-link" href={% url 'auth_login' %}><img src="{% static "webapp/icons/open-iconic-master/svg/account-logout.svg" %}" class="img-fluid img-account-auth" alt="account login">&nbsp;Sign&nbsp;In<span class="sr-only">(current)</span></a>#}
+                {#                {% endif %}#}
+                {#            </span>#}
+                {#        </li>#}
+            </ul>
+
+        </div>
+    </div>
+</nav>
+
+{#    <div class="container">#}
+{% block content %}
+
+{% endblock %}
+{#    </div>#}
+
+<footer class="footer">
+    <hr style="margin:0px;">
+    <div class="container">
+        <div class="text-muted" style="text-align: center">Developed by Ethical Peeps &copy;</div>
+    </div>
+</footer>
+
+
+<!-- Optional JavaScript -->
+<!-- Bootstrap JS -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src=" {% static "webapp/bootstrap-4.0.0-beta-dist/js/jquery-3.2.1.min.js" %}"></script>
+<script src=" {% static "webapp/bootstrap-4.0.0-beta-dist/js/popper.min.js" %}"></script>
+<script src=" {% static "webapp/bootstrap-4.0.0-beta-dist/js/bootstrap.min.js" %}"></script>
+
+<!-- Additional JS -->
+{#    <script src=" {% static "webapp/base-page.js" %}"></script>#}
+
+{#    <script type="text/javascript" >#}
+{#    $(document).ready(function(){#}
+{#        $("#id_username").attr('placeholder', '{{form.username.label}}');#}
+{#        $("#id_first_name").attr('placeholder', '{{form.first_name.label}}');#}
+{#        $("#id_last_name").attr('placeholder', '{{form.last_name.label}}');#}
+{#        $("#id_email").attr('placeholder', '{{form.email.label}}');#}
+{#        $("#id_password1").attr('placeholder', '{{form.password1.label}}');#}
+{#        $("#id_password2").attr('placeholder', '{{form.password2.label}}');#}
+{#    });#}
+{#    </script>#}
+
+
+</body>
+</html>

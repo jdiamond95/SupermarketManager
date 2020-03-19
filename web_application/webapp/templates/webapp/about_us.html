@@ -1,0 +1,122 @@
+{% extends "webapp/base.html" %}
+{% block content %}
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <div class="header clearfix">
+                    <nav>
+{#                        <ul class="nav nav-pills float-right">#}
+{#                            <li class="nav-item">#}
+{#                                <a class="nav" href="{% url "webapp:view_profile" user_id%}">Back</a>#}
+{#                            </li>#}
+{#                        </ul>#}
+                        <h4 class="text">SuperMart</h4>
+                    </nav>
+                </div>
+{#                <h6 class="card-subtitle mb-2 text-muted">#}
+{#                    This is a supermarket management and personal shopping application developed for COMP4920 - Management and Ethics#}
+{#                </h6>#}
+            </div>
+
+            <div class="card-body">
+                <h4 class="card-title">About</h4>
+                <p class="card-text">
+                    This is a supermarket management and personal shopping application developed for COMP4920 - Management and Ethics
+                    a final year Computer Science and Engineering course at UNSW Sydney.
+                </p>
+                <p class="card-text">
+                    All students involved in this project are in their final year of study and working on their thesis concurrently.
+                </p>
+                <br>
+                <hr>
+            </div>
+
+            <div class="card-body">
+
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <ul class="list-group h4">
+                            <li class="list-group-item list-group-item-secondary">
+                                <p class="h1 font-weight-bold"></p>
+                                Developers
+{#                                <h4 class="card-title text-white">Developers</h4>#}
+                            </li>
+                        </ul>
+
+                    </div>
+                </div>
+                <br>
+
+                <div class="row">
+                    <div class="col-sm-6">
+{#                        <h6 class="card-title font-weight-bold">Web Application</h6>#}
+                        <table class="table">
+                          <thead>
+                            <tr>
+                              <th scope="col">Web Application</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td>Jac Diamond</td>
+                            </tr>
+                            <tr>
+                              <td>Kai Yang Lim</td>
+                            </tr>
+                            <tr>
+                              <td>Nathan Watkins    <small class="tex text-muted">SCRUM Master</small></td>
+                            </tr>
+                            <tr>
+                              <td></td>
+                            </tr>
+                          </tbody>
+                        </table>
+
+
+{#                        <h6 class="card-title font-weight-bold">Web Application</h6>#}
+{##}
+{#                        <ul class="list-group ">#}
+{#                          <li class="list-group-item list-group-item-secondary">Jac Diamond</li>#}
+{#                          <li class="list-group-item list-group-item-secondary">Kai Yang Lim</li>#}
+{#                          <li class="list-group-item list-group-item-secondary">Nathan Watkins    <small class="tex text-muted">SCRUM Master</small> </li>#}
+{#                        </ul>#}
+
+
+                    </div>
+
+
+                    <div class="col-sm-6">
+                        <table class="table">
+                          <thead>
+                            <tr>
+                              <th scope="col">Mobile Application</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td>Nicholas Joukhdar</td>
+                            </tr>
+                            <tr>
+                              <td>Pearlie Zhang <small class="tex text-muted">Product Owner</small></td>
+                            </tr>
+                            <tr>
+                              <td></td>
+                            </tr>
+
+                          </tbody>
+                        </table>
+{#                        <h6 class="card-title font-weight-bold">Mobile Application</h6>#}
+{#                        <ul class="list-group">#}
+{#                          <li class="list-group-item list-group-item-secondary">Nicholas Joukhdar</li>#}
+{#                          <li class="list-group-item list-group-item-secondary">Pearlie Zhang <small class="tex text-muted">Product Owner</small></li>#}
+{#                        </ul>#}
+
+                    </div>
+
+                </div>
+            </div>
+{#            </div>#}
+        </div>
+    </div>
+{% endblock %}

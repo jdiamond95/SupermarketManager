@@ -1,0 +1,191 @@
+{#{% extends "webapp/base.html" %}#}
+{#{% load i18n %}#}
+{##}
+{#{% block content %}#}
+{#<form method="post" action="">#}
+{#  {% csrf_token %}#}
+{#  {{ form.as_p }}#}
+{##}
+{#  <input type="submit" value="{% trans 'Log in' %}" />#}
+{#  <input type="hidden" name="next" value="{{ next }}" />#}
+{#  <a href="{% url "webapp:signup" %}" class="button">Register!</a>#}
+{#</form>#}
+{#{% endblock %}#}
+
+{% extends "webapp/base.html" %}
+{% load i18n %}
+{% load widget_tweaks %}
+{% load static %}
+
+{% block content %}
+    <div class="background-image-shop" style="height: 100%; background: url('{% static "webapp/food-healthy-vegetables-potatoes(1).jpg" %}') no-repeat;"></div>
+    <div class="container" style="padding-top: 150px;">
+        <div class="panel" style="width: 50%">
+            <div class="panel-body">
+                <form method="post">
+                    <legend style="text-align: center">Sign In</legend>
+                    <hr>
+                    {% csrf_token %}
+                    {{ form.media }}
+
+                    {# Create the form fields    #}
+                    {% for field in form.visible_fields %}
+                        <div class="form-group {{ field.html_name }} {% if field.errors %}error{% endif %}">
+                            {{ field|add_class:'form-control' }}
+
+                            {% if field.help_text %}
+                                <small id="{{ field.html_initial_id }}" class="form-text text-muted">
+                                    {{ field.help_text | safe }}
+                                </small>
+                            {% endif %}
+
+                            {% if field.errors %}
+                                <p class="text-danger">{{ field.errors.as_text }}</p>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+
+                    {# Add in any hidden forms#}
+                    {% for field in form.hidden_fields %}
+                        {{ field }}
+                    {% endfor %}
+
+                    {% block formsets %}
+                        {% for formset in inlines %}
+                            {% include "inline_formset.html" with formset=formset %}
+                        {% endfor %}
+                    {% endblock formsets %}
+
+                    {#    Higlight any form wide errors#}
+                    {% if form.errors %}
+                        <div class="alert alert-danger" role="alert">
+                            {% for error in form.non_field_errors %}
+                                {{ error }}
+                                <hr>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    <div class="form-actions" style="text-align: center">
+                        <input class="btn btn-primary" type="submit" value="{% trans 'Log in' %}"/>
+                        <input type="hidden" name="next" value="{{ next }}"/>
+
+
+                        {% block extra_buttons %}
+                        {% endblock extra_buttons %}
+                        <hr>
+                        Not yet a user? <a href="{% url "webapp:signup" %}">Register here!</a>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        function defer() {
+            if (window.jQuery) {
+                {# Ahttps://stackoverflow.com/questions/244183/how-to-display-a-loading-screen-while-site-content-loadsdd a placeholder to each form#}
+                $(document).ready(function () {{% load i18n %}
+{% load widget_tweaks %}
+{% load static %}
+
+{% block content %}
+    <div class="background-image-shop" style="height: 100%; background: url('{% static "webapp/food-healthy-vegetables-potatoes(1).jpg" %}') no-repeat;"></div>
+    <div class="container" style="padding-top: 150px;">
+        <div class="panel" style="width: 50%">
+            <div class="panel-body">
+                <form method="post">
+                    <legend style="text-align: center">Sign In</legend>
+                    <hr>
+                    {% csrf_token %}
+                    {{ form.media }}
+
+                    {# Create the form fields    #}
+                    {% for field in form.visible_fields %}
+                        <div class="form-group {{ field.html_name }} {% if field.errors %}error{% endif %}">
+                            {{ field|add_class:'form-control' }}
+
+                            {% if field.help_text %}
+                                <small id="{{ field.html_initial_id }}" class="form-text text-muted">
+                                    {{ field.help_text | safe }}
+                                </small>
+                            {% endif %}
+
+                            {% if field.errors %}
+                                <p class="text-danger">{{ field.errors.as_text }}</p>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+
+                    {# Add in any hidden forms#}
+                    {% for field in form.hidden_fields %}
+                        {{ field }}
+                    {% endfor %}
+
+                    {% block formsets %}
+                        {% for formset in inlines %}
+                            {% include "inline_formset.html" with formset=formset %}
+                        {% endfor %}
+                    {% endblock formsets %}
+
+                    {#    Higlight any form wide errors#}
+                    {% if form.errors %}
+                        <div class="alert alert-danger" role="alert">
+                            {% for error in form.non_field_errors %}
+                                {{ error }}
+                                <hr>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    <div class="form-actions" style="text-align: center">
+                        <input class="btn btn-primary" type="submit" value="{% trans 'Log in' %}"/>
+                        <input type="hidden" name="next" value="{{ next }}"/>
+
+
+                        {% block extra_buttons %}
+                        {% endblock extra_buttons %}
+                        <hr>
+                        Not yet a user? <a href="{% url "webapp:signup" %}">Register here!</a>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        function defer() {
+            if (window.jQuery) {
+                {# Ahttps://stackoverflow.com/questions/244183/how-to-display-a-loading-screen-while-site-content-loadsdd a placeholder to each form#}
+                $(document).ready(function () {
+                    $("#id_username").attr('placeholder', '{{form.username.label}}');
+                    $("#id_password").attr('placeholder', '{{form.password.label}}');
+                })
+            } else {
+                setTimeout(function () {
+                    defer()
+                }, 50);
+            }
+        }
+
+        {#Call the defer function#}
+        defer();
+
+    </script>
+{% endblock %}
+
+                    $("#id_username").attr('placeholder', '{{form.username.label}}');
+                    $("#id_password").attr('placeholder', '{{form.password.label}}');
+                })
+            } else {
+                setTimeout(function () {
+                    defer()
+                }, 50);
+            }
+        }
+
+        {#Call the defer function#}
+        defer();
+
+    </script>
+{% endblock %}
+
+{#TODO refer to this for better loading page: https://stackoverflow.com/questions/244183/how-to-display-a-loading-screen-while-site-content-loads#}

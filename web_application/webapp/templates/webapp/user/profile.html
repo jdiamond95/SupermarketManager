@@ -1,0 +1,83 @@
+{% extends "webapp/base.html" %}
+{% block content %}
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+{#                <div class="header clearfix">#}
+                <div class="row">
+                    <div class="col"><h4>User Profile</h4></div>
+                    <div class="col" style="text-align: right;">
+                        <span style="vertical-align: middle; display: inline-block">
+
+                        <ul class="nav nav-tabs">
+                          <li class="nav-item">
+                            <a class="nav-link" href="{% url 'webapp:transaction_history' user.id %}">Transaction History</a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" href={% url 'webapp:favourite_branch' user.id %}>Set favourite branch</a>
+                          </li>
+{#                          <li class="nav-item">#}
+{#                            <a class="nav-link" href={% url 'webapp:branch_analytics_manage' user.id branch.company branch.branchName %}>Analytics</a>#}
+{#                          </li>#}
+                        </ul>
+
+                        {#  <a href={% url 'webapp:branch_inventory_manage' user.id branch.company branch.branchName %}><b>Manage Branch Inventory</b></a> | #}
+                        {#<a href={% url 'webapp:branch_analytics_manage' user.id branch.company branch.branchName %}><b>Analytics</b></a>#}
+                        </span>
+                    </div>
+                </div>
+
+{#                    <nav class="navbar navbar-expand-lg navbar-light bg-transparent">#}
+{#                        <a class="navbar-brand" >User Profile</a>#}
+{##}
+{#                        <ul class="nav nav-pills ml-auto">#}
+{#                        <ul class="nav nav-pills float-right">#}
+{#                            <li class="nav-item">#}
+{#                                <a class="nav-link" href="{% url 'webapp:transaction_history' user.id %}">Transaction History</a>#}
+{#                                <a class="nav" href="{% url "webapp:view_profile" user.id%}">Back</a>#}
+{#                            </li>#}
+{#                            <li class="nav-item">#}
+{#                                <a class="nav" href="{% url "webapp:view_profile" user.id%}">Back</a>#}
+{#                                <a class="nav-link" href={% url 'webapp:favourite_branch' user.id %}>Add a favourite branch</a>#}
+{#                            </li>#}
+{#                        </ul>#}
+{#                    </nav>#}
+
+{#                </div>#}
+            </div>
+
+            <div class="card-body">
+                <div class="card-title"><b>Name: {{ user.get_full_name }}</b></div>
+                <hr>
+                <p class="card-text">
+                    Joined: {{ user.date_joined }}<p>
+                    Last accessed: {{ user.last_login }}<p>
+                    {% if branch != None %}
+{#                        Favourite Branch: {{ branch }} (<a href={% url 'webapp:favourite_branch' user.id %}>Change</a>)#}
+                        Favourite Branch: {{ branch }}
+                    {% else %}
+{#                        Favourite Branch: {{ branch }} <a href={% url 'webapp:favourite_branch' user.id %}>Add a favourite branch</a>#}
+                        Favourite Branch: {{ branch }}
+                    {% endif %}
+{#                    <hr>#}
+{#                    <a href="{% url 'webapp:transaction_history' user.id %}">Transaction History</a>#}
+{#                    shopping cart<p>#}
+{#                    shopping history<p>#}
+
+                </p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{#        <h1>Name: {{ user.get_full_name }}</h1>#}
+{#        Joined: {{ user.date_joined }}<p>#}
+{#        Last accessed: {{ user.last_login }}#}
+{#        {% if branch != None %}#}
+{#            </br>Favourite Branch: {{ branch }} <a class="nav-link" href={% url 'webapp:favourite_branch' user.id %}>Change</a>#}
+{#        {% else %}#}
+{#            </br>Favourite Branch: {{ branch }} <a class="nav-link" href={% url 'webapp:favourite_branch' user.id %}>Add a favourite branch</a>#}
+{#        {% endif %}#}
+{#        <hr>#}
+{#        <a class="nav-link" href="{% url 'webapp:transaction_history' user.id %}">Transaction History</a>#}
+{#        shopping cart<p>#}
+{#        shopping history<p>#}

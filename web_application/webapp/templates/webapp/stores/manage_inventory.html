@@ -1,0 +1,185 @@
+{% extends "webapp/stores/manager_base.html" %}
+{% block manager_title %}
+Inventory Manage
+{% endblock %}
+
+{% block manager_content %}
+    {% load static %}
+    {% static "webapp/product_images/" as baseImageUrl %}
+
+
+    <div class="container">
+        <br>
+        <div class="float-right">
+            <form method="get" class="form-inline">
+                <input class="form-control" type="text" name='q' placeholder="Search for a product"/>
+                <button type="submit" class="btn btn-primary" value="Search">Search</button>
+            </form>
+            <br>
+        </div>
+    </div>
+
+    <div class="container">
+{#        <div class="container-fluid">#}
+            {% csrf_token %}
+{#            <ul>#}
+                {% for p in products %}
+                    <div class="container">
+{#                    <div class="panel" style="background-color: transparent">#}
+{#                        <div class="panel-body">#}
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-3" style="text-align: center">
+                                        {#                                                                {{ i.item.name }} - $ {{ i.price }}#}
+
+                                        <object data="{{ baseImageUrl }}{{p.item.name }}.jpg" height="175" type="image/png">
+                                        <img src="{% static "webapp/image-unavailable-grey.jpg" %}" height="175" />
+                                        </object>
+        {#                                    <img src="{% static "webapp/sample-item-image.jpg" %}" class="img" alt="My image"#}
+        {#                                         height="175" />#}
+                                    </div>
+                                    <div class="col-md-9">
+                                        <div class="row">
+                                            <div class="col-8">
+
+
+                                                <h2>{{ p.item.name.capitalize }}</h2>
+                                            </div>
+                                            <div class="col-4">
+                                                <form method="post">
+                                                    {% csrf_token %}
+                                                    <input type="hidden" name="item-name" value={{ p.item.name }}>
+                                                    <button type="submit" class="close" style="color: red"  name="delete-item" aria-label="Close">
+                                                      <span aria-hidden="true">X</span>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <hr>
+
+
+
+                                        <form method="post">
+                                            {% csrf_token %}
+                                            <div class="form-group row">
+                                                <label for="managerInputPrice" class="col-sm-2 col-form-label">Price ($)</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" name='price' class="form-control" id="managerInputPrice" placeholder="$ {{ p.price }}" value={{ p.price }}>
+                                                    {% if form_error_price %}
+                                                        <small id="emailHelp" class="form-text text-danger">{{ form_error_price }}</small>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label for="managerInputQuantity" class="col-sm-2 col-form-label">Quantity</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" name='quantity' class="form-control" id="managerInputQuantity" placeholder={{p.quantity}} value={{ p.quantity }}>
+                                                    {% if form_error_quan %}
+                                                        <small id="emailHelp" class="form-text text-danger">{{ form_error_quan }}</small>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label for="managerInputAisle" class="col-sm-2 col-form-label">Aisle</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" name='aisle' class="form-control" id="managerInputAisle" placeholder={{ p.aisle.aisleNum }} value={{ p.aisle.aisleNum }}>
+                                                    {% if form_error_aisle %}
+                                                        <small id="emailHelp" class="form-text text-danger">{{ form_error_aisle }}</small>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label for="managerInputAisle" class="col-sm-2 col-form-label">Restock #</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" name='restockAlert' class="form-control" id="managerInputAisle" placeholder={{ p.restockAlert }} value={{ p.restockAlert }}>
+                                                    {% if restock_error %}
+                                                        <small id="emailHelp" class="form-text text-danger">{{ restock_error }}</small>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+
+
+                                            {% if form_updated == p %}
+                                                <div class="alert alert-success" role="alert">
+                                                  <strong>Product Updated</strong>
+                                                </div>
+                                            {% endif %}
+                                            <input type="hidden" name="item-name" value={{ p.item.name }}>
+        {#                                        <input type="submit" name="update-item" value="Update Item Details">#}
+        {#                                        <div class="row pull-right">#}
+                                            <button class="btn btn-primary float-right" type="submit" name="update-item" value="Update Item Details">Update Item Details</button>
+        {#                                        </div>#}
+                                         </form>
+
+
+
+
+                                    </div>
+                                </div>
+                            <br>
+
+                            <div class="row">
+                                <div class="col-md-3" style="text-align: center">
+                                </div>
+                                <div class="col-md-9">
+                                    <form method="post" enctype="multipart/form-data" >
+                                        {% csrf_token %}
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">Upload Image</label>
+                                            <div class="col-sm-6">
+
+                                                <input type="hidden" name="file_name" value="{{ p.item.name }}">
+                                                <input type="file" class="form-control-file" name="myfile">
+
+{#                                                <input type="text" name='restockAlert' class="form-control" id="managerInputAisle" placeholder={{ p.restockAlert }} value={{ p.restockAlert }}>#}
+                                                {% if upload_error %}
+                                                    <small class="form-text text-danger">{{ upload_error }}</small>
+                                                {% endif %}
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <button type="submit" class="btn btn-primary float-right">Upload</button>
+
+                                            </div>
+
+                                        </div>
+{#                                        <button type="submit" class="btn btn-primary float-right">Upload</button>#}
+                                    </form>
+                                </div>
+{#                        </div>#}
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                    <br>
+                {% endfor %}
+{#            </ul>#}
+    </div>
+
+        <nav aria-label="Pagination-fav-branch">
+            <ul class="pagination justify-content-center">
+                {% if products.has_previous %}
+                    <li class="page-item ">
+                      <a class="page-link" href="?page={{ products.previous_page_number }}">Previous</a>
+                    </li>
+                {% endif %}
+
+                <li class="page-item">
+                    <a class="page-link" href="#">Page {{ products.number }} of {{ products.paginator.num_pages }}.</a>
+                </li>
+
+                {% if products.has_next %}
+                    <li class="page-item ">
+                        <a class="page-link" href="?page={{ products.next_page_number }}">Next</a>
+                    </li>
+                {% endif %}
+
+            </ul>
+
+        </nav>
+    </div>
+
+{% endblock %}

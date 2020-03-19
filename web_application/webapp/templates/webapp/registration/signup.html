@@ -1,0 +1,175 @@
+{#{% extends 'webapp/base.html' %}#}
+{##}
+{#{% block content %}#}
+{#  <h2>Sign up</h2>#}
+{#  <form method="post">#}
+{#    {% csrf_token %}#}
+{#    {{ form.as_p }}#}
+{#    <button type="submit">Sign up</button>#}
+{#  </form>#}
+{#{% endblock %}#}
+
+{% extends 'webapp/base.html' %}
+{% load widget_tweaks %}
+{% load static %}
+
+{% block content %}
+    <div class="background-image-shop" style="height: 100%; background: url('{% static "webapp/food-healthy-vegetables-potatoes(1).jpg" %}') no-repeat;"></div>
+    <div class="container">
+        <div class="panel" style="width: 80%;">
+            <div class="panel-body">
+                <form method="post">
+                    <legend style="text-align:center">Sign Up</legend>
+                    <hr>
+                    {% csrf_token %}
+                    {{ form.media }}
+
+                    {# Create the form fields    #}
+                    {% for field in form.visible_fields %}
+
+                        {% if field.name == "first_name" or field.name == "password1" %}
+
+                            <div class="row">
+                            <div class="col">
+                        {% elif field.name == "last_name" or field.name == "password2" %}
+                            <div class="col">
+                        {% elif field.name == "username" or field.name == "email" %}
+                            <div class="row">
+                            <div class="col-md-6">
+                        {% endif %}
+                    <div class="form-group {{ field.html_name }} {% if field.errors %}error{% endif %}">
+                        {{ field|add_class:'form-control' }}
+
+                        {% if field.help_text %}
+                            <small id="{{ field.html_initial_id }}" class="form-text text-muted">
+                                {{ field.help_text | safe }}
+                            </small>
+                        {% endif %}
+
+                        {% if field.errors %}
+                            <p class="text-danger">{{ field.errors.as_text }}</p>
+                        {% endif %}
+                    </div>
+
+                    {% if field.name == "first_name" or field.name == "password1" %}
+                        </div>
+                    {% elif field.name == "last_name" or field.name == "password2" or field.name == "username" or field.name == "email" %}
+                        </div>
+                        </div>
+                    {% endif %}
+                    {% endfor %}
+
+                    {# Add in any hidden forms#}
+                    {% for field in form.hidden_fields %}
+                        {{ field }}
+                    {% endfor %}
+
+                    {% block formsets %}
+                        {% for formset in inlines %}
+                            {% include "inline_formset.html" with formset=formset %}
+                        {% endfor %}
+                    {% endblock formsets %}
+
+                    <div class="form-actions" style="text-align: center">
+                        <input class="btn btn-primary btn-large" type="submit" value="Submit"/>
+                        {% block extra_buttons %}
+                        {% endblock extra_buttons %}
+
+                    </div>
+                    {#    Higlight any form wide errors#}
+                    {% if form.errors %}
+                        {% if form.non_field_errors %}
+                            <div class="alert alert-danger" role="alert">
+                                <ul>
+                                    {% for error in form.non_field_errors %}
+                                        <li>{{ error }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% endif %}
+                    {% endif %}
+                    <hr>
+                    <div style="text-align: center">Already a user? <a href="{% url 'auth_login' %}">Sign in here!</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        function defer() {
+            console.log(window)
+            if (window.jQuery) {
+                {# Add a placeholder to each form#}
+                $(document).ready(function () {
+                    $("#id_username").attr('placeholder', '{{form.username.label}}');
+                    {#        $("#id_username").attr('class', 'form-control is-invalid');#}
+                    $("#id_first_name").attr('placeholder', '{{form.first_name.label}}');
+                    $("#id_last_name").attr('placeholder', '{{form.last_name.label}}');
+                    $("#id_email").attr('placeholder', '{{form.email.label}}');
+                    $("#id_password1").attr('placeholder', '{{form.password1.label}}');
+                    $("#id_password2").attr('placeholder', '{{form.password2.label}}');
+                    {#        $("#id_password2").attr('class', 'form-control is-invalid');#}
+                })
+
+            } else {
+                setTimeout(function () {
+                    defer()
+                }, 50);
+            }
+        }
+
+        {#Call the defer function#}
+        defer();
+
+    </script>
+{% endblock %}
+
+{#$(document).ready(function(){#}
+{#        console.log("Loaded")#}
+{#        $("#id_username").attr('placeholder', '{{form.username.label}}');#}
+{#        $("#id_first_name").attr('placeholder', '{{form.first_name.label}}');#}
+{#        $("#id_last_name").attr('placeholder', '{{form.last_name.label}}');#}
+{#        $("#id_email").attr('placeholder', '{{form.email.label}}');#}
+{#        $("#id_password1").attr('placeholder', '{{form.password1.label}}');#}
+{#        $("#id_password2").attr('placeholder', '{{form.password2.label}}');#}
+{#        });#}
+
+
+{#Taken from: http://wisercoder.com/django-forms-bootstrap/#}
+{#<form class="form-horizontal" action="" method="POST" {% if form.is_multipart %}enctype="multipart/form-data"{% endif %}>#}
+{#    {% csrf_token %}#}
+{#    {{ form.media }}#}
+{#    {% if form.errors %}#}
+{#        <div class="alert alert-error">#}
+{#            <ul>#}
+{#                {% for error in form.non_field_errors %}#}
+{#                    <li>{{ error }}</li>#}
+{#                {% endfor %}#}
+{#            </ul>#}
+{#        </div>#}
+{#    {% endif %}#}
+{#    {% for field in form.visible_fields %}#}
+{#        <div class="control-group {{ field.html_name }} {% if field.errors %}error{% endif %}">#}
+{#            <label class="control-label">{{ field.label }}{% if field.field.required %} *{% endif %}</label>#}
+{#            <div class="controls">#}
+{#                {{ field }}#}
+{#                {% if field.errors %}<span class="help-inline">{{ field.errors.as_text }}</span>{% endif %}#}
+{#            </div>#}
+{#        </div>#}
+{#    {% endfor %}#}
+{#    {% for field in form.hidden_fields %}#}
+{#        {{ field }}#}
+{#    {% endfor %}#}
+{##}
+{#    {% block formsets %}#}
+{#        {% for formset in inlines %}#}
+{#            {% include "inline_formset.html" with formset=formset %}#}
+{#        {% endfor %}#}
+{#    {% endblock formsets %}#}
+{##}
+{#    <div class="form-actions">#}
+{#        <input class="btn btn-primary btn-large" type="submit" value="Submit"/>#}
+{#        {% block extra_buttons %}#}
+{#        {% endblock extra_buttons %}#}
+{#    </div>#}
+{#</form>#}
