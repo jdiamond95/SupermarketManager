@@ -3,7 +3,7 @@ Django==1.11.5
 django-custom-user==0.7
 django-registration==2.2
 django-widget-tweaks==1.4.1
-djangorestframework==3.6.4
+djangorestframework==3.9.1
 numpy==1.13.3
 pandas==0.20.3
 psycopg2==2.7.3
